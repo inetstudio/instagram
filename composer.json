@@ -1,7 +1,8 @@
 {
     "name": "inetstudio/instagram",
-    "version" : "1.0.0",
     "description": "Package for instagram integration",
+    "homepage": "https://github.com/inetstudio/instagram",
+    "license": "MIT",
     "require": {
         "inetstudio/upload-image": ">=1.0.0",
         "inetstudio/upload-video": ">=1.0.0",
