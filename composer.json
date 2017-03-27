@@ -1,0 +1,22 @@
+{
+    "name": "inetstudio/instagram",
+    "version" : "1.0.0",
+    "description": "Package for instagram integration",
+    "require": {
+        "inetstudio/upload-image": ">=1.0.0",
+        "inetstudio/upload-video": ">=1.0.0",
+        "guzzlehttp/guzzle": "^6.2",
+        "emojione/emojione": "^2.2"
+    },
+    "authors": [
+        {
+            "name": "Konstantin Bukin",
+            "email": "bukin@inetstudio.ru"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "InetStudio\\Instagram\\": "src/"
+      }
+    }
+}
