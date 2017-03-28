@@ -25,7 +25,7 @@ class InstagramCommentModel extends Model
      * @var array
      */
     protected $fillable = [
-        'pk', 'post_pk', 'user_pk', 'text' , 'created_at_utc'
+        'pk', 'post_pk', 'user_pk', 'text', 'created_at_utc'
     ];
 
     /**

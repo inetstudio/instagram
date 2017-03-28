@@ -26,7 +26,6 @@ class CreateInstagramPostsTable extends Migration
             $table->integer('like_count');
             $table->text('caption');
             $table->timestamp('taken_at')->nullable();
-            $table->timestamp('device_timestamp')->nullable();
             $table->timestamps();
         });
     }

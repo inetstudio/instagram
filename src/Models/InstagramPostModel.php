@@ -27,7 +27,7 @@ class InstagramPostModel extends Model
     protected $fillable = [
         'pk', 'user_pk', 'media_type', 'image_versions', 'video_versions',
         'code', 'view_count', 'comment_count', 'like_count', 'caption',
-        'taken_at', 'device_timestamp'
+        'taken_at'
     ];
 
     /**
@@ -37,7 +37,6 @@ class InstagramPostModel extends Model
      */
     protected $dates = [
         'taken_at',
-        'device_timestamp',
         'created_at',
         'updated_at',
     ];

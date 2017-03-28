@@ -12,7 +12,7 @@ class InstagramServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = true;
+    protected $defer = false;
 
     public function boot()
     {
@@ -39,12 +39,12 @@ class InstagramServiceProvider extends ServiceProvider
             return new InstagramPost();
         });
 
-        $this->app->booting(function () {
-            $loader = AliasLoader::getInstance();
+        $loader = AliasLoader::getInstance();
+        $loader->alias('InstagramPost', 'InetStudio\Instagram\Facades\InstagramPostFacade');
+        $loader->alias('InstagramUser', 'InetStudio\Instagram\Facades\InstagramUserFacade');
 
-            $loader->alias('InstagramPost', 'InetStudio\Instagram\Facades\InstagramPostFacade');
-            $loader->alias('InstagramUser', 'InetStudio\Instagram\Facades\InstagramUserFacade');
-        });
+        $this->app->register('InetStudio\UploadImage\UploadImageServiceProvider');
+        $this->app->register('InetStudio\UploadVideo\UploadVideoServiceProvider');
     }
 
     /**

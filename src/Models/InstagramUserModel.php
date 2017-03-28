@@ -25,7 +25,7 @@ class InstagramUserModel extends Model
      * @var array
      */
     protected $fillable = [
-        'pk', 'username', 'full_name', 'profile_pic_url' , 'follower_count', 'following_count', 'media_count'
+        'pk', 'username', 'full_name', 'profile_pic_url', 'follower_count', 'following_count', 'media_count'
     ];
 
     /**

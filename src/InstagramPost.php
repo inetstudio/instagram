@@ -40,8 +40,7 @@ class InstagramPost
             'comment_count' => $post['comment_count'],
             'like_count' => $post['like_count'],
             'caption' => (isset($post['caption']['text'])) ? Emoji::toShort($post['caption']['text']) : "",
-            'taken_at' => $post['taken_at'],
-            'device_timestamp' => $post['device_timestamp'],
+            'taken_at' => $post['taken_at']
         ]);
 
         return $instagramPost;
