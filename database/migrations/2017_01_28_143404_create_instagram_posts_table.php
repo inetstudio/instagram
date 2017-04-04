@@ -27,6 +27,7 @@ class CreateInstagramPostsTable extends Migration
             $table->text('caption');
             $table->timestamp('taken_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

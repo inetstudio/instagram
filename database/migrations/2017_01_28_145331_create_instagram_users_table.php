@@ -23,6 +23,7 @@ class CreateInstagramUsersTable extends Migration
             $table->integer('following_count');
             $table->integer('media_count');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

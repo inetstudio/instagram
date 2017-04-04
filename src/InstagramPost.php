@@ -74,14 +74,14 @@ class InstagramPost
             if (isset($result['ranked_items'])) {
                 $ranked = $this->getFilteredPosts($result['ranked_items'], $startTime, $endTime, $filter, $types);
 
-                $postsArr[] = array_merge($postsArr, $ranked['posts']);
+                $postsArr = array_merge($postsArr, $ranked['posts']);
                 $stop = $ranked['stop'];
             }
 
             if (isset($result['items'])) {
                 $all = $this->getFilteredPosts($result['items'], $startTime, $endTime, $filter, $types);
 
-                $postsArr[] = array_merge($postsArr, $all['posts']);
+                $postsArr = array_merge($postsArr, $all['posts']);
                 $stop = $all['stop'];
             }
 
@@ -108,14 +108,14 @@ class InstagramPost
         $filteredPosts['stop'] = false;
 
         foreach ($posts as $post) {
-            if (in_array($post['id'], $filter) or !in_array($post['media_type'], $types)) continue;
+            if (in_array($post['pk'], $filter) or !in_array($post['media_type'], $types)) continue;
             if ($endTime and $post['taken_at'] > $endTime) continue;
 
             if ($startTime and $post['taken_at'] < $startTime) {
-                $filteredPosts['stop'] = false;
+                $filteredPosts['stop'] = true;
                 break;
             } else {
-                $filteredPosts['posts'] = $post;
+                $filteredPosts['posts'] = array_push($filteredPosts['posts'], $post);
             }
         }
 

@@ -25,7 +25,7 @@ class InstagramServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->mergeConfigFrom(
-            __DIR__.'/../config/filesystems.php', 'filesystems.disk'
+            __DIR__.'/../config/filesystems.php', 'filesystems.disks'
         );
     }
 
@@ -43,8 +43,7 @@ class InstagramServiceProvider extends ServiceProvider
         $loader->alias('InstagramPost', 'InetStudio\Instagram\Facades\InstagramPostFacade');
         $loader->alias('InstagramUser', 'InetStudio\Instagram\Facades\InstagramUserFacade');
 
-        $this->app->register('InetStudio\UploadImage\UploadImageServiceProvider');
-        $this->app->register('InetStudio\UploadVideo\UploadVideoServiceProvider');
+        $this->app->register('Spatie\MediaLibrary\MediaLibraryServiceProvider');
     }
 
     /**

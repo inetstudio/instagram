@@ -3,6 +3,7 @@
 namespace InetStudio\Instagram\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Модель комментария в инстаграме
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class InstagramCommentModel extends Model
 {
+    use SoftDeletes;
+
     /**
      * Связанная с моделью таблица.
      *
@@ -37,6 +40,7 @@ class InstagramCommentModel extends Model
         'created_at_utc',
         'created_at',
         'updated_at',
+        'deleted_at',
     ];
 
     /**

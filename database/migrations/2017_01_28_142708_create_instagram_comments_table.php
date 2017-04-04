@@ -21,6 +21,7 @@ class CreateInstagramCommentsTable extends Migration
             $table->text('text');
             $table->timestamp('created_at_utc');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

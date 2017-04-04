@@ -3,6 +3,9 @@
 namespace InetStudio\Instagram\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 /**
  * Модель поста в инстаграме
@@ -12,6 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class InstagramPostModel extends Model
 {
+    use SoftDeletes;
+    use HasMediaTrait;
+
     /**
      * Связанная с моделью таблица.
      *
@@ -39,6 +45,7 @@ class InstagramPostModel extends Model
         'taken_at',
         'created_at',
         'updated_at',
+        'deleted_at',
     ];
 
     /**
@@ -52,12 +59,8 @@ class InstagramPostModel extends Model
         static::deleting(function($post)
         {
             $post->comments()->delete();
-            $post->images()->delete();
         });
     }
-
-    use \InetStudio\UploadImage\Traits\Imagable;
-    use \InetStudio\UploadVideo\Traits\Videoable;
 
     /**
      * Обратное отношение "один ко многим" с моделью пользователя в инстаграме
