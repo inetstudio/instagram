@@ -6,9 +6,6 @@ use Emojione\Emojione as Emoji;
 use GuzzleHttp\Client;
 use InetStudio\Instagram\Models\InstagramUserModel;
 
-/**
- * Class InstagramUser
- */
 class InstagramUser
 {
     /**
@@ -24,7 +21,7 @@ class InstagramUser
         if (isset($result['user'])) {
             $user = $result['user'];
         } else {
-            return null;
+            return;
         }
 
         $instagramUser = InstagramUserModel::updateOrCreate([
@@ -52,7 +49,7 @@ class InstagramUser
     {
         $client = new Client();
         $response = $client->post(config('instagram.services.url').$action, [
-            'form_params' => $params
+            'form_params' => $params,
         ]);
 
         $media = json_decode($response->getBody()->getContents(), true);

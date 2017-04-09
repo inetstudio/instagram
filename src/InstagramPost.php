@@ -2,13 +2,10 @@
 
 namespace InetStudio\Instagram;
 
-use Emojione\Emojione as Emoji;
 use GuzzleHttp\Client;
+use Emojione\Emojione as Emoji;
 use InetStudio\Instagram\Models\InstagramPostModel;
 
-/**
- * Class InstagramPost
- */
 class InstagramPost
 {
     /**
@@ -24,7 +21,7 @@ class InstagramPost
         if (isset($result['items'][0])) {
             $post = $result['items'][0];
         } else {
-            return null;
+            return;
         }
 
         $instagramPost = InstagramPostModel::updateOrCreate([
@@ -33,13 +30,13 @@ class InstagramPost
             'user_pk' => $post['user']['pk'],
             'media_type' => $post['media_type'],
             'image_versions' => $post['image_versions2']['candidates'][0]['url'],
-            'video_versions' => (isset($post['video_versions'][0]['url'])) ? $post['video_versions'][0]['url'] : "",
+            'video_versions' => (isset($post['video_versions'][0]['url'])) ? $post['video_versions'][0]['url'] : '',
             'code' => $post['code'],
             'view_count' => isset($post['view_count']) ? $post['view_count'] : 0,
             'comment_count' => $post['comment_count'],
             'like_count' => $post['like_count'],
-            'caption' => (isset($post['caption']['text'])) ? Emoji::toShort($post['caption']['text']) : "",
-            'taken_at' => $post['taken_at']
+            'caption' => (isset($post['caption']['text'])) ? Emoji::toShort($post['caption']['text']) : '',
+            'taken_at' => $post['taken_at'],
         ]);
 
         return $instagramPost;
@@ -66,7 +63,7 @@ class InstagramPost
         $startTime = ($periodStart) ? strtotime($periodStart) : null;
         $endTime = ($periodEnd) ? strtotime($periodEnd) : null;
 
-        while ($haveData && !$stop) {
+        while ($haveData && ! $stop) {
             $result = $this->sendRequest('getHashtagFeed', [$tag, $next]);
             sleep(1);
 
@@ -84,7 +81,7 @@ class InstagramPost
                 $stop = $all['stop'];
             }
 
-            $haveData = (!isset($result['next_max_id'])) ? false : true;
+            $haveData = (! isset($result['next_max_id'])) ? false : true;
             $next = (isset($result['next_max_id'])) ? $result['next_max_id'] : '';
         }
 
@@ -108,7 +105,9 @@ class InstagramPost
 
         foreach ($posts as $post) {
             if (in_array($post['pk'], $filter) or !in_array($post['media_type'], $types)) continue;
-            if ($endTime and $post['taken_at'] > $endTime) continue;
+            if ($endTime and $post['taken_at'] > $endTime) {
+                continue;
+            }
 
             if ($startTime and $post['taken_at'] < $startTime) {
                 $filteredPosts['stop'] = true;
@@ -131,8 +130,8 @@ class InstagramPost
     private function sendRequest($action, $params)
     {
         $client = new Client();
-        $response = $client->post(config('instagram.services.url') . $action, [
-            'form_params' => $params
+        $response = $client->post(config('instagram.services.url').$action, [
+            'form_params' => $params,
         ]);
 
         $media = json_decode($response->getBody()->getContents(), true);

@@ -51,8 +51,7 @@ class InstagramUserModel extends Model
     {
         parent::boot();
 
-        static::deleting(function($user)
-        {
+        static::deleting(function ($user) {
             $user->posts()->delete();
             $user->comments()->delete();
         });

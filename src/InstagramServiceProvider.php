@@ -5,9 +5,6 @@ namespace InetStudio\Instagram;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
-/**
- * Class InstagramServiceProvider
- */
 class InstagramServiceProvider extends ServiceProvider
 {
     /**
@@ -18,16 +15,16 @@ class InstagramServiceProvider extends ServiceProvider
     protected $defer = false;
 
     /**
-     *
+     * Bootstrap the application events.
      */
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../database/' => base_path("database")
+            __DIR__.'/../database/' => base_path("database")
         ], 'database');
 
         $this->publishes([
-            __DIR__ . '/../config/instagram.php' => config_path('instagram.php'),
+            __DIR__.'/../config/instagram.php' => config_path('instagram.php'),
         ], 'config');
 
         $this->mergeConfigFrom(
@@ -36,7 +33,7 @@ class InstagramServiceProvider extends ServiceProvider
     }
 
     /**
-     *
+     * Register the service provider.
      */
     public function register()
     {
@@ -64,7 +61,7 @@ class InstagramServiceProvider extends ServiceProvider
     {
         return [
             'InstagramPost',
-            'InstagramUser'
+            'InstagramUser',
         ];
     }
 }
