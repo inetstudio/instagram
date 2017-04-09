@@ -104,7 +104,7 @@ class InstagramPost
         $filteredPosts['stop'] = false;
 
         foreach ($posts as $post) {
-            if (in_array($post['pk'], $filter) or !in_array($post['media_type'], $types)) {
+            if (in_array($post['pk'], $filter) or ! in_array($post['media_type'], $types)) {
                 continue;
             }
 
