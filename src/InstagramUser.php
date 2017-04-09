@@ -2,8 +2,8 @@
 
 namespace InetStudio\Instagram;
 
-use Emojione\Emojione as Emoji;
 use GuzzleHttp\Client;
+use Emojione\Emojione as Emoji;
 use InetStudio\Instagram\Models\InstagramUserModel;
 
 class InstagramUser
