@@ -116,7 +116,7 @@ class InstagramPost
                 $filteredPosts['stop'] = true;
                 break;
             } else {
-                $filteredPosts['posts'] = array_push($filteredPosts['posts'], $post);
+                array_push($filteredPosts['posts'], $post);
             }
         }
 
