@@ -5,13 +5,11 @@ namespace InetStudio\Instagram\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 /**
- * Модель пользователя в инстаграме
+ * Модель пользователя в инстаграме.
  *
  * Class InstagramUser
- * @package InetStudio\Instagram\Models
  */
 class InstagramUserModel extends Model
 {
@@ -31,7 +29,7 @@ class InstagramUserModel extends Model
      * @var array
      */
     protected $fillable = [
-        'pk', 'username', 'full_name', 'profile_pic_url', 'follower_count', 'following_count', 'media_count'
+        'pk', 'username', 'full_name', 'profile_pic_url', 'follower_count', 'following_count', 'media_count',
     ];
 
     /**
@@ -47,7 +45,7 @@ class InstagramUserModel extends Model
 
     /**
      * Загрузка модели
-     * Событие удаления пользователя инстаграм
+     * Событие удаления пользователя инстаграм.
      */
     public static function boot()
     {
@@ -61,7 +59,7 @@ class InstagramUserModel extends Model
     }
 
     /**
-     * Отношение "один ко многим" с моделью поста в инстаграме
+     * Отношение "один ко многим" с моделью поста в инстаграме.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -71,7 +69,7 @@ class InstagramUserModel extends Model
     }
 
     /**
-     * Отношение "один ко многим" с моделью комментария в инстаграме
+     * Отношение "один ко многим" с моделью комментария в инстаграме.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -81,22 +79,22 @@ class InstagramUserModel extends Model
     }
 
     /**
-     * Получаем никнейм пользователя инстаграм
+     * Получаем никнейм пользователя инстаграм.
      *
      * @return string
      */
     public function getUserNicknameAttribute()
     {
-        return '@' . trim($this->username, '@');
+        return '@'.trim($this->username, '@');
     }
 
     /**
-     * Получаем ссылку на профиль пользователя инстаграм
+     * Получаем ссылку на профиль пользователя инстаграм.
      *
      * @return string
      */
     public function getUserURLAttribute()
     {
-        return 'https://instagram.com/' . trim($this->username, '@');
+        return 'https://instagram.com/'.trim($this->username, '@');
     }
 }

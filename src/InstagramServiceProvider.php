@@ -5,6 +5,9 @@ namespace InetStudio\Instagram;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class InstagramServiceProvider
+ */
 class InstagramServiceProvider extends ServiceProvider
 {
     /**
@@ -14,6 +17,9 @@ class InstagramServiceProvider extends ServiceProvider
      */
     protected $defer = false;
 
+    /**
+     *
+     */
     public function boot()
     {
         $this->publishes([
@@ -29,6 +35,9 @@ class InstagramServiceProvider extends ServiceProvider
         );
     }
 
+    /**
+     *
+     */
     public function register()
     {
         $this->app->singleton('InstagramUser', function () {

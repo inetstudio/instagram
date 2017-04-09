@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Модель комментария в инстаграме
+ * Модель комментария в инстаграме.
  *
  * Class InstagramComment
- * @package InetStudio\Instagram\Models
  */
 class InstagramCommentModel extends Model
 {
@@ -28,7 +27,7 @@ class InstagramCommentModel extends Model
      * @var array
      */
     protected $fillable = [
-        'pk', 'post_pk', 'user_pk', 'text', 'created_at_utc'
+        'pk', 'post_pk', 'user_pk', 'text', 'created_at_utc',
     ];
 
     /**
@@ -44,7 +43,7 @@ class InstagramCommentModel extends Model
     ];
 
     /**
-     * Обратное отношение "один ко многим" с моделью пользователя в инстаграме
+     * Обратное отношение "один ко многим" с моделью пользователя в инстаграме.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -54,7 +53,7 @@ class InstagramCommentModel extends Model
     }
 
     /**
-     * Обратное отношение "один ко многим" с моделью поста в инстаграме
+     * Обратное отношение "один ко многим" с моделью поста в инстаграме.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

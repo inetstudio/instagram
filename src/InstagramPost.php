@@ -8,12 +8,11 @@ use InetStudio\Instagram\Models\InstagramPostModel;
 
 /**
  * Class InstagramPost
- * @package InetStudio\Instagram
  */
 class InstagramPost
 {
     /**
-     * Создание поста по его идентификатору
+     * Создание поста по его идентификатору.
      *
      * @param string $id
      * @return null
@@ -47,7 +46,7 @@ class InstagramPost
     }
 
     /**
-     * Поиск постов по тегу и их фильтрация по времени, типу, id
+     * Поиск постов по тегу и их фильтрация по времени, типу, id.
      *
      * @param $tag
      * @param string $periodStart
@@ -86,14 +85,14 @@ class InstagramPost
             }
 
             $haveData = (!isset($result['next_max_id'])) ? false : true;
-            $next = (isset($result['next_max_id'])) ? $result['next_max_id'] : "";
+            $next = (isset($result['next_max_id'])) ? $result['next_max_id'] : '';
         }
 
         return array_reverse($postsArr);
     }
 
     /**
-     * Фильтрация постов
+     * Фильтрация постов.
      *
      * @param $posts
      * @param $startTime
@@ -123,7 +122,7 @@ class InstagramPost
     }
 
     /**
-     * Запрос к сервису для получения данных
+     * Запрос к сервису для получения данных.
      *
      * @param $action
      * @param $params

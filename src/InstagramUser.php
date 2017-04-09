@@ -8,12 +8,11 @@ use InetStudio\Instagram\Models\InstagramUserModel;
 
 /**
  * Class InstagramUser
- * @package InetStudio\Instagram
  */
 class InstagramUser
 {
     /**
-     * Создание пользователя по его идентификатору
+     * Создание пользователя по его идентификатору.
      *
      * @param string $id
      * @return null
@@ -43,7 +42,7 @@ class InstagramUser
     }
 
     /**
-     * Запрос к сервису для получения данных
+     * Запрос к сервису для получения данных.
      *
      * @param $action
      * @param $params
@@ -52,7 +51,7 @@ class InstagramUser
     private function sendRequest($action, $params)
     {
         $client = new Client();
-        $response = $client->post(config('instagram.services.url') . $action, [
+        $response = $client->post(config('instagram.services.url').$action, [
             'form_params' => $params
         ]);
 

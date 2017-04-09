@@ -8,10 +8,9 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 /**
- * Модель поста в инстаграме
+ * Модель поста в инстаграме.
  *
  * Class InstagramPost
- * @package InetStudio\Instagram\Models
  */
 class InstagramPostModel extends Model
 {
@@ -33,7 +32,7 @@ class InstagramPostModel extends Model
     protected $fillable = [
         'pk', 'user_pk', 'media_type', 'image_versions', 'video_versions',
         'code', 'view_count', 'comment_count', 'like_count', 'caption',
-        'taken_at'
+        'taken_at',
     ];
 
     /**
@@ -50,7 +49,7 @@ class InstagramPostModel extends Model
 
     /**
      * Загрузка модели
-     * Событие удаления поста в инстаграме
+     * Событие удаления поста в инстаграме.
      */
     public static function boot()
     {
@@ -63,7 +62,7 @@ class InstagramPostModel extends Model
     }
 
     /**
-     * Обратное отношение "один ко многим" с моделью пользователя в инстаграме
+     * Обратное отношение "один ко многим" с моделью пользователя в инстаграме.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -73,7 +72,7 @@ class InstagramPostModel extends Model
     }
 
     /**
-     * Отношение "один ко многим" с моделью комментария в инстаграме
+     * Отношение "один ко многим" с моделью комментария в инстаграме.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -83,12 +82,12 @@ class InstagramPostModel extends Model
     }
 
     /**
-     * Получаем ссылку на пост в инстаграме
+     * Получаем ссылку на пост в инстаграме.
      *
      * @return string
      */
     public function getPostURLAttribute()
     {
-        return 'https://instagram.com/p/' . $this->code;
+        return 'https://instagram.com/p/'.$this->code;
     }
 }
