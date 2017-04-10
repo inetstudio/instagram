@@ -5,13 +5,14 @@ namespace InetStudio\Instagram\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
 /**
  * Модель пользователя в инстаграме.
  *
  * Class InstagramUser
  */
-class InstagramUserModel extends Model
+class InstagramUserModel extends Model implements HasMedia
 {
     use SoftDeletes;
     use HasMediaTrait;

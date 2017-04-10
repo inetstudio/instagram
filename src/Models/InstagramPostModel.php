@@ -2,16 +2,18 @@
 
 namespace InetStudio\Instagram\Models;
 
+use Spatie\Image\Manipulations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 /**
  * Модель поста в инстаграме.
  *
  * Class InstagramPost
  */
-class InstagramPostModel extends Model
+class InstagramPostModel extends Model implements HasMediaConversions
 {
     use SoftDeletes;
     use HasMediaTrait;
@@ -87,5 +89,19 @@ class InstagramPostModel extends Model
     public function getPostURLAttribute()
     {
         return 'https://instagram.com/p/'.$this->code;
+    }
+
+    /**
+     * Создаем превью при сохранении изображений.
+     */
+    public function registerMediaConversions()
+    {
+        $this->addMediaConversion('edit_thumb')
+            ->fit(Manipulations::FIT_CONTAIN, 96, 96)
+            ->performOnCollections('images');
+
+        $this->addMediaConversion('index_thumb')
+            ->fit(Manipulations::FIT_CONTAIN, 320, 320)
+            ->performOnCollections('images');
     }
 }
