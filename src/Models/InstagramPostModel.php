@@ -19,6 +19,11 @@ class InstagramPostModel extends Model implements HasMediaConversions
     use HasMediaTrait;
 
     /**
+     * Имя социальной сети.
+     */
+    const NETWORK = 'instagram';
+
+    /**
      * Связанная с моделью таблица.
      *
      * @var string
