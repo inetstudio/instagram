@@ -16,6 +16,10 @@ class InstagramUser
      */
     public function createUser($id = '')
     {
+        if (! $id) {
+            return;
+        }
+
         $result = $this->sendRequest('getUsernameInfo', [$id]);
 
         if (isset($result['user'])) {

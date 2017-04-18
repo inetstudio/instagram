@@ -16,6 +16,10 @@ class InstagramPost
      */
     public function createPost($id = '')
     {
+        if (! $id) {
+            return;
+        }
+
         $result = $this->sendRequest('mediaInfo', [$id]);
 
         if (isset($result['items'][0])) {
