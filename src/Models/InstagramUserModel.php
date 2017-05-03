@@ -2,6 +2,7 @@
 
 namespace InetStudio\Instagram\Models;
 
+use Emojione\Emojione as Emoji;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -96,5 +97,15 @@ class InstagramUserModel extends Model implements HasMedia
     public function getUserURLAttribute()
     {
         return 'https://instagram.com/'.trim($this->username, '@');
+    }
+
+    /**
+     * Получаем имя пользователя.
+     *
+     * @return mixed
+     */
+    public function getUserFullNameAttribute()
+    {
+        return ($this->full_name) ? Emoji::shortnameToUnicode($this->full_name) : $this->userNickname;
     }
 }
