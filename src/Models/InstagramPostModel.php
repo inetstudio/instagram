@@ -3,6 +3,7 @@
 namespace InetStudio\Instagram\Models;
 
 use Spatie\Image\Manipulations;
+use Emojione\Emojione as Emoji;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -94,6 +95,17 @@ class InstagramPostModel extends Model implements HasMediaConversions
     public function getPostURLAttribute()
     {
         return 'https://instagram.com/p/'.$this->code;
+    }
+
+    /**
+     * Получаем текст поста.
+     *
+     * @param $value
+     * @return mixed
+     */
+    public function getCaptionAttribute($value)
+    {
+        return Emoji::shortnameToUnicode($value);
     }
 
     /**
