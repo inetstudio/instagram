@@ -104,19 +104,21 @@ class InstagramPost
      */
     private function getFilteredPosts($posts, $startTime, $endTime, $filter, $types)
     {
+        $filteredPosts = [];
+
         $filteredPosts['posts'] = [];
         $filteredPosts['stop'] = false;
 
         foreach ($posts as $post) {
-            if (in_array($post['pk'], $filter) or ! in_array($post['media_type'], $types)) {
+            if (in_array($post['pk'], $filter) || ! in_array($post['media_type'], $types)) {
                 continue;
             }
 
-            if ($endTime and $post['taken_at'] > $endTime) {
+            if ($endTime && $post['taken_at'] > $endTime) {
                 continue;
             }
 
-            if ($startTime and $post['taken_at'] < $startTime) {
+            if ($startTime && $post['taken_at'] < $startTime) {
                 $filteredPosts['stop'] = true;
                 break;
             } else {
