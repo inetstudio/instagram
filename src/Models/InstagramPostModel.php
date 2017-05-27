@@ -2,8 +2,8 @@
 
 namespace InetStudio\Instagram\Models;
 
-use Spatie\Image\Manipulations;
 use Emojione\Emojione as Emoji;
+use Spatie\Image\Manipulations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
