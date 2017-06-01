@@ -37,6 +37,10 @@ class InstagramServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton('InstagramID', function () {
+            return new InstagramID();
+        });
+
         $this->app->singleton('InstagramUser', function () {
             return new InstagramUser();
         });
@@ -46,6 +50,7 @@ class InstagramServiceProvider extends ServiceProvider
         });
 
         $loader = AliasLoader::getInstance();
+        $loader->alias('InstagramID', 'InetStudio\Instagram\Facades\InstagramIDFacade');
         $loader->alias('InstagramPost', 'InetStudio\Instagram\Facades\InstagramPostFacade');
         $loader->alias('InstagramUser', 'InetStudio\Instagram\Facades\InstagramUserFacade');
 
@@ -60,6 +65,7 @@ class InstagramServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
+            'InstagramID',
             'InstagramPost',
             'InstagramUser',
         ];
