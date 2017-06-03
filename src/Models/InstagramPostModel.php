@@ -3,7 +3,6 @@
 namespace InetStudio\Instagram\Models;
 
 use Emojione\Emojione as Emoji;
-use Spatie\Image\Manipulations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -113,12 +112,16 @@ class InstagramPostModel extends Model implements HasMediaConversions
      */
     public function registerMediaConversions()
     {
+        $quality = (config('instagram.images.quality')) ? config('instagram.images.quality') : 75;
+
         $this->addMediaConversion('edit_thumb')
             ->crop('crop-center', 96, 96)
+            ->quality($quality)
             ->performOnCollections('images');
 
         $this->addMediaConversion('index_thumb')
             ->crop('crop-center', 320, 320)
+            ->quality($quality)
             ->performOnCollections('images');
     }
 }
