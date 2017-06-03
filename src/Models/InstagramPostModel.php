@@ -97,6 +97,21 @@ class InstagramPostModel extends Model implements HasMediaConversions
     }
 
     /**
+     * Получаем тип поста в инстаграме.
+     *
+     * @return string
+     */
+    public function getTypeAttribute()
+    {
+        switch ($this->media_type) {
+            case 1:
+                return 'photo';
+            case 2:
+                return 'video';
+        }
+    }
+
+    /**
      * Получаем текст поста.
      *
      * @param $value
