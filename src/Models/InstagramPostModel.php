@@ -138,5 +138,12 @@ class InstagramPostModel extends Model implements HasMediaConversions
             ->crop('crop-center', 320, 320)
             ->quality($quality)
             ->performOnCollections('images');
+
+        foreach (config('instagram.images.sizes') as $size) {
+            $this->addMediaConversion($size['width'].'x'.$size['height'].'_thumb')
+                ->crop('crop-center', $size['width'], $size['height'])
+                ->quality($quality)
+                ->performOnCollections('images');
+        }
     }
 }
