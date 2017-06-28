@@ -141,7 +141,7 @@ class InstagramUserModel extends Model implements HasMediaConversions
      */
     public function getUserFullNameAttribute()
     {
-        return ($this->full_name) ? Emoji::shortnameToUnicode($this->full_name) : $this->userNickname;
+        return ($this->full_name) ? Emoji::shortnameToUnicode($this->full_name) : $this->user_nickname;
     }
 
     /**
