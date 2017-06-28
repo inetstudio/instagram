@@ -20,16 +20,21 @@ class InstagramServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../database/' => base_path('database'),
-        ], 'database');
-
-        $this->publishes([
             __DIR__.'/../config/instagram.php' => config_path('instagram.php'),
         ], 'config');
 
         $this->mergeConfigFrom(
             __DIR__.'/../config/filesystems.php', 'filesystems.disks'
         );
+
+        if ($this->app->runningInConsole()) {
+            if (! class_exists('CreateInstagramTables')) {
+                $timestamp = date('Y_m_d_His', time());
+                $this->publishes([
+                    __DIR__.'/../database/migrations/create_instagram_tables.php.stub' => database_path('migrations/'.$timestamp.'_create_instagram_tables.php'),
+                ], 'migrations');
+            }
+        }
     }
 
     /**
