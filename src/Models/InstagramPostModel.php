@@ -11,7 +11,47 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 /**
  * Модель поста в инстаграме.
  *
- * Class InstagramPost
+ * @property int $id
+ * @property string $pk
+ * @property string $user_pk
+ * @property int $media_type
+ * @property string $image_versions
+ * @property string $video_versions
+ * @property string $code
+ * @property int $view_count
+ * @property int $comment_count
+ * @property int $like_count
+ * @property mixed $caption
+ * @property \Carbon\Carbon|null $taken_at
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property \Carbon\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\InetStudio\Instagram\Models\InstagramCommentModel[] $comments
+ * @property-read string $post_u_r_l
+ * @property-read string $type
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\Media[] $media
+ * @property-read \InetStudio\Instagram\Models\InstagramUserModel $user
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\InetStudio\Instagram\Models\InstagramPostModel onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereCaption($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereCommentCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereImageVersions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereLikeCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereMediaType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel wherePk($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereTakenAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereUserPk($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereVideoVersions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramPostModel whereViewCount($value)
+ * @method static \Illuminate\Database\Query\Builder|\InetStudio\Instagram\Models\InstagramPostModel withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\InetStudio\Instagram\Models\InstagramPostModel withoutTrashed()
+ * @mixin \Eloquent
  */
 class InstagramPostModel extends Model implements HasMediaConversions
 {

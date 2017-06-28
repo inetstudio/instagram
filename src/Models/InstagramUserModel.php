@@ -10,8 +10,43 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 /**
  * Модель пользователя в инстаграме.
- *
+ * 
  * Class InstagramUser
+ *
+ * @property int $id
+ * @property string $pk
+ * @property string $username
+ * @property string $full_name
+ * @property string $profile_pic_url
+ * @property int $follower_count
+ * @property int $following_count
+ * @property int $media_count
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property \Carbon\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\InetStudio\Instagram\Models\InstagramCommentModel[] $comments
+ * @property-read mixed $user_full_name
+ * @property-read string $user_nickname
+ * @property-read string $user_u_r_l
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\Media[] $media
+ * @property-read \Illuminate\Database\Eloquent\Collection|\InetStudio\Instagram\Models\InstagramPostModel[] $posts
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\InetStudio\Instagram\Models\InstagramUserModel onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramUserModel whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramUserModel whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramUserModel whereFollowerCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramUserModel whereFollowingCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramUserModel whereFullName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramUserModel whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramUserModel whereMediaCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramUserModel wherePk($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramUserModel whereProfilePicUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramUserModel whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\InetStudio\Instagram\Models\InstagramUserModel whereUsername($value)
+ * @method static \Illuminate\Database\Query\Builder|\InetStudio\Instagram\Models\InstagramUserModel withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\InetStudio\Instagram\Models\InstagramUserModel withoutTrashed()
+ * @mixin \Eloquent
  */
 class InstagramUserModel extends Model implements HasMediaConversions
 {
