@@ -6,14 +6,14 @@ use Emojione\Emojione as Emoji;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 /**
  * Модель пользователя в инстаграме.
  *
  * Class InstagramUser
  */
-class InstagramUserModel extends Model implements HasMedia
+class InstagramUserModel extends Model implements HasMediaConversions
 {
     use SoftDeletes;
     use HasMediaTrait;
@@ -107,5 +107,22 @@ class InstagramUserModel extends Model implements HasMedia
     public function getUserFullNameAttribute()
     {
         return ($this->full_name) ? Emoji::shortnameToUnicode($this->full_name) : $this->userNickname;
+    }
+
+    /**
+     * Создаем превью при сохранении изображений.
+     */
+    public function registerMediaConversions()
+    {
+        $quality = (config('instagram.images.quality')) ? config('instagram.images.quality') : 75;
+
+        if (config('instagram.images.sizes.user')) {
+            foreach (config('instagram.images.sizes.user') as $name => $size) {
+                $this->addMediaConversion($name.'_thumb')
+                    ->crop('crop-center', $size['width'], $size['height'])
+                    ->quality($quality)
+                    ->performOnCollections('images');
+            }
+        }
     }
 }

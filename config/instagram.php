@@ -17,9 +17,15 @@ return [
     'images' => [
         'quality' => 75,
         'sizes' => [
-            [
-                'width' => 128,
-                'height' => 128,
+            'post' => [
+                'admin_form' => [
+                    'width' => 96,
+                    'height' => 96,
+                ],
+                'admin_index' => [
+                    'width' => 320,
+                    'height' => 320,
+                ],
             ],
         ],
     ],
