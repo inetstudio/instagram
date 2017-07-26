@@ -49,7 +49,7 @@ class InstagramPost
     /**
      * Поиск постов по тегу и их фильтрация по времени, типу, id.
      *
-     * @param $tag
+     * @param mixed $tag
      * @param string $periodStart
      * @param string $periodEnd
      * @param array $filter
@@ -67,19 +67,21 @@ class InstagramPost
         $startTime = ($periodStart) ? strtotime($periodStart) : null;
         $endTime = ($periodEnd) ? strtotime($periodEnd) : null;
 
+        $searchTag = (is_array($tag)) ? array_values($tag)[0] : $tag;
+
         while ($haveData && ! $stop) {
-            $result = $this->sendRequest('getHashtagFeed', [$tag, $next]);
+            $result = $this->sendRequest('getHashtagFeed', [$searchTag, $next]);
             sleep(1);
 
             if (isset($result['ranked_items'])) {
-                $ranked = $this->getFilteredPosts($result['ranked_items'], $startTime, $endTime, $filter, $types);
+                $ranked = $this->getFilteredPosts($result['ranked_items'], $tag, $startTime, $endTime, $filter, $types);
 
                 $postsArr = array_merge($postsArr, $ranked['posts']);
                 $stop = $ranked['stop'];
             }
 
             if (isset($result['items'])) {
-                $all = $this->getFilteredPosts($result['items'], $startTime, $endTime, $filter, $types);
+                $all = $this->getFilteredPosts($result['items'], $tag, $startTime, $endTime, $filter, $types);
 
                 $postsArr = array_merge($postsArr, $all['posts']);
                 $stop = $all['stop'];
@@ -96,20 +98,31 @@ class InstagramPost
      * Фильтрация постов.
      *
      * @param $posts
+     * @param $tag
      * @param $startTime
      * @param $endTime
      * @param $filter
      * @param $types
      * @return mixed
      */
-    private function getFilteredPosts($posts, $startTime, $endTime, $filter, $types)
+    private function getFilteredPosts($posts, $tag, $startTime, $endTime, $filter, $types)
     {
         $filteredPosts = [];
 
         $filteredPosts['posts'] = [];
         $filteredPosts['stop'] = false;
 
+        $tag = $this->prepareTag($tag);
+
         foreach ($posts as $post) {
+            if (is_array($tag)) {
+                $caption = (isset($post['caption']['text'])) ? Emoji::toShort($post['caption']['text']) : '';
+                preg_match_all("/(#[а-яА-Яa-zA-Z0-9]+)/u", $caption, $postTags);
+                $postTags = array_map(function($value) { return mb_strtolower($value); }, $postTags[0]);
+
+                if (count(array_intersect($tag, $postTags)) != count($tag)) continue;
+            }
+
             if (in_array($post['pk'], $filter) || ! in_array($post['media_type'], $types)) {
                 continue;
             }
@@ -146,5 +159,20 @@ class InstagramPost
         $media = json_decode($response->getBody()->getContents(), true);
 
         return $media;
+    }
+
+    /**
+     * Приводим полученные теги к нужному виду.
+     *
+     * @param $tag
+     * @return array|string
+     */
+    private function prepareTag($tag)
+    {
+        if (is_array($tag)) {
+            return array_map(function($value) { return '#'.trim($value, '#'); }, $tag);
+        } else {
+            return '#'.trim($tag, '#');
+        }
     }
 }

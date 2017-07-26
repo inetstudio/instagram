@@ -5,6 +5,7 @@ namespace InetStudio\Instagram\Models;
 use Emojione\Emojione as Emoji;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Nicolaslopezj\Searchable\SearchableTrait;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
@@ -27,7 +28,8 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
  * @property \Carbon\Carbon|null $updated_at
  * @property \Carbon\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\InetStudio\Instagram\Models\InstagramCommentModel[] $comments
- * @property-read string $post_u_r_l
+ * @property-read string $post_url
+ * @property-read string $social_name
  * @property-read string $type
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\Media[] $media
  * @property-read \InetStudio\Instagram\Models\InstagramUserModel $user
@@ -57,6 +59,7 @@ class InstagramPostModel extends Model implements HasMediaConversions
 {
     use SoftDeletes;
     use HasMediaTrait;
+    use SearchableTrait;
 
     /**
      * Имя социальной сети.
@@ -91,6 +94,27 @@ class InstagramPostModel extends Model implements HasMediaConversions
         'created_at',
         'updated_at',
         'deleted_at',
+    ];
+
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        /**
+         * Columns and their priority in search results.
+         * Columns with higher values are more important.
+         * Columns with equal values have equal importance.
+         *
+         * @var array
+         */
+        'columns' => [
+            'instagram_posts.code' => 10,
+            'instagram_posts.caption' => 9,
+            'user.username' => 8,
+            'user.full_name' => 7,
+        ],
     ];
 
     /**
@@ -160,6 +184,16 @@ class InstagramPostModel extends Model implements HasMediaConversions
     public function getCaptionAttribute($value)
     {
         return Emoji::shortnameToUnicode($value);
+    }
+
+    /**
+     * Получаем имя социальной сети.
+     *
+     * @return string
+     */
+    public function getSocialNameAttribute()
+    {
+        return $this::NETWORK;
     }
 
     /**

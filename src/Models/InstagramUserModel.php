@@ -145,6 +145,16 @@ class InstagramUserModel extends Model implements HasMediaConversions
     }
 
     /**
+     * Получаем id пользователя в соц.сети.
+     *
+     * @return mixed
+     */
+    public function getUserIdAttribute()
+    {
+        return $this->pk;
+    }
+
+    /**
      * Создаем превью при сохранении изображений.
      */
     public function registerMediaConversions()

@@ -6,7 +6,8 @@
     "require": {
         "guzzlehttp/guzzle": "^6.2",
         "emojione/emojione": "^3.0.3",
-        "spatie/laravel-medialibrary": "^5.11.1"
+        "spatie/laravel-medialibrary": "^5.11.1",
+        "nicolaslopezj/searchable": "1.*"
     },
     "authors": [
         {
