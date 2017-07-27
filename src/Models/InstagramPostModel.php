@@ -133,7 +133,7 @@ class InstagramPostModel extends Model implements HasMediaConversions
     /**
      * Обратное отношение "один ко многим" с моделью пользователя в инстаграме.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {

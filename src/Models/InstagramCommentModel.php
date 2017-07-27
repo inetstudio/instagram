@@ -72,7 +72,7 @@ class InstagramCommentModel extends Model
     /**
      * Обратное отношение "один ко многим" с моделью пользователя в инстаграме.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -82,7 +82,7 @@ class InstagramCommentModel extends Model
     /**
      * Обратное отношение "один ко многим" с моделью поста в инстаграме.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function post()
     {
