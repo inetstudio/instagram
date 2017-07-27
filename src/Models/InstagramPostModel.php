@@ -5,7 +5,6 @@ namespace InetStudio\Instagram\Models;
 use Emojione\Emojione as Emoji;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Nicolaslopezj\Searchable\SearchableTrait;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
@@ -59,7 +58,6 @@ class InstagramPostModel extends Model implements HasMediaConversions
 {
     use SoftDeletes;
     use HasMediaTrait;
-    use SearchableTrait;
 
     /**
      * Имя социальной сети.
@@ -94,27 +92,6 @@ class InstagramPostModel extends Model implements HasMediaConversions
         'created_at',
         'updated_at',
         'deleted_at',
-    ];
-
-    /**
-     * Searchable rules.
-     *
-     * @var array
-     */
-    protected $searchable = [
-        /**
-         * Columns and their priority in search results.
-         * Columns with higher values are more important.
-         * Columns with equal values have equal importance.
-         *
-         * @var array
-         */
-        'columns' => [
-            'instagram_posts.code' => 10,
-            'instagram_posts.caption' => 9,
-            'user.username' => 8,
-            'user.full_name' => 7,
-        ],
     ];
 
     /**
