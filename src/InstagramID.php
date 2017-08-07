@@ -83,6 +83,7 @@ class InstagramID
             // Look up that base64 character in Instagram's alphabet.
             $encoded .= self::BASE64URL_CHARMAP[$base64];
         }
+
         return $encoded;
     }
 
@@ -97,7 +98,7 @@ class InstagramID
      */
     public static function fromCode($code)
     {
-        if (!is_string($code) || preg_match('/[^A-Za-z0-9\-_]/', $code)) {
+        if (! is_string($code) || preg_match('/[^A-Za-z0-9\-_]/', $code)) {
             throw new \InvalidArgumentException('Input must be a valid Instagram shortcode.');
         }
 
@@ -112,6 +113,7 @@ class InstagramID
         }
         // Now just convert the base2 binary string to a base10 decimal string.
         $base10 = self::base2to10($base2);
+
         return $base10;
     }
 
@@ -166,6 +168,7 @@ class InstagramID
         } else {
             $base2 = ltrim($base2, '0');
         }
+
         return $base2;
     }
 
@@ -183,6 +186,7 @@ class InstagramID
             $bitValue = bcpow('2', (string) $bitPosition, 0);
             $table[] = $bitValue;
         }
+
         return $table;
     }
 
@@ -197,7 +201,7 @@ class InstagramID
      */
     public static function base2to10($base2)
     {
-        if (!is_string($base2) || preg_match('/[^01]/', $base2)) {
+        if (! is_string($base2) || preg_match('/[^01]/', $base2)) {
             throw new \InvalidArgumentException('Input must be a binary string.');
         }
         // Pre-build a ~80kb RAM table with all values for bits 1-512. Any
@@ -226,6 +230,7 @@ class InstagramID
                 $base10 = bcadd($base10, $bitValue, 0);
             }
         }
+
         return $base10;
     }
 }
