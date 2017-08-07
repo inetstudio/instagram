@@ -117,10 +117,14 @@ class InstagramPost
         foreach ($posts as $post) {
             if (is_array($tag)) {
                 $caption = (isset($post['caption']['text'])) ? Emoji::toShort($post['caption']['text']) : '';
-                preg_match_all("/(#[а-яА-Яa-zA-Z0-9]+)/u", $caption, $postTags);
-                $postTags = array_map(function($value) { return mb_strtolower($value); }, $postTags[0]);
+                preg_match_all('/(#[а-яА-Яa-zA-Z0-9]+)/u', $caption, $postTags);
+                $postTags = array_map(function ($value) {
+                    return mb_strtolower($value);
+                }, $postTags[0]);
 
-                if (count(array_intersect($tag, $postTags)) != count($tag)) continue;
+                if (count(array_intersect($tag, $postTags)) != count($tag)) {
+                    continue;
+                }
             }
 
             if (in_array($post['pk'], $filter) || ! in_array($post['media_type'], $types)) {
@@ -170,7 +174,9 @@ class InstagramPost
     private function prepareTag($tag)
     {
         if (is_array($tag)) {
-            return array_map(function($value) { return '#'.trim($value, '#'); }, $tag);
+            return array_map(function ($value) {
+                return '#'.trim($value, '#');
+            }, $tag);
         } else {
             return '#'.trim($tag, '#');
         }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Модель комментария в инстаграме.
- * 
+ *
  * Class InstagramComment
  *
  * @property int $id

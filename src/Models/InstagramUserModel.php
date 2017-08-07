@@ -10,7 +10,7 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 /**
  * Модель пользователя в инстаграме.
- * 
+ *
  * Class InstagramUser
  *
  * @property int $id
