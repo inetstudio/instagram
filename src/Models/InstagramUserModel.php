@@ -121,7 +121,7 @@ class InstagramUserModel extends Model implements HasMediaConversions
      */
     public function getUserNicknameAttribute()
     {
-        return '@'.trim($this->username, '@');
+        return ($this->username) ? '@'.trim($this->username, '@') : '';
     }
 
     /**
