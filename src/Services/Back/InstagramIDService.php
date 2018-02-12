@@ -1,6 +1,8 @@
 <?php
 
-namespace InetStudio\Instagram;
+namespace InetStudio\Instagram\Services\Back;
+
+use InetStudio\Instagram\Contracts\Services\Back\InstagramIDServiceContract;
 
 /**
  * Class for converting media IDs to/from Instagram's shortcode system.
@@ -11,7 +13,7 @@ namespace InetStudio\Instagram;
  *
  * @author SteveJobzniak (https://github.com/SteveJobzniak)
  */
-class InstagramID
+class InstagramIDService implements InstagramIDServiceContract
 {
     /**
      * Base64 URL Safe Character Map.

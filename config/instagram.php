@@ -16,15 +16,32 @@ return [
 
     'images' => [
         'quality' => 75,
-        'sizes' => [
-            'post' => [
-                'admin_form' => [
-                    'width' => 96,
-                    'height' => 96,
-                ],
-                'admin_index' => [
-                    'width' => 320,
-                    'height' => 320,
+        'posts' => [
+            'conversions' => [
+                'images' => [
+                    'preview' => [
+                        [
+                            'name' => 'preview_admin_form',
+                            'size' => [
+                                'width' => 96,
+                                'height' => 96,
+                            ],
+                        ],
+                        [
+                            'name' => 'preview_admin_index',
+                            'size' => [
+                                'width' => 320,
+                                'height' => 320,
+                            ],
+                        ],
+                        [
+                            'name' => 'preview_gallery',
+                            'fit' => [
+                                'width' => 480,
+                                'height' => 480,
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],

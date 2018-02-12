@@ -1,12 +1,17 @@
 <?php
 
-namespace InetStudio\Instagram;
+namespace InetStudio\Instagram\Services\Back;
 
 use GuzzleHttp\Client;
 use Emojione\Emojione as Emoji;
 use InetStudio\Instagram\Models\InstagramUserModel;
+use InetStudio\Instagram\Contracts\Services\Back\InstagramUsersServiceContract;
 
-class InstagramUser
+/**
+ * Class InstagramUsersService
+ * @package InetStudio\Instagram\Services\Back
+ */
+class InstagramUsersService implements InstagramUsersServiceContract
 {
     /**
      * Создание пользователя по его идентификатору.

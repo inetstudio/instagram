@@ -1,31 +1,31 @@
 <?php
 
-namespace InetStudio\Instagram;
+namespace InetStudio\Instagram\Services\Back;
 
 use GuzzleHttp\Client;
 use Emojione\Emojione as Emoji;
 use InetStudio\Instagram\Models\InstagramPostModel;
+use InetStudio\Instagram\Contracts\Services\Back\InstagramPostsServiceContract;
 
-class InstagramPost
+/**
+ * Class InstagramPostsService
+ * @package InetStudio\Instagram\Services\Back
+ */
+class InstagramPostsService implements InstagramPostsServiceContract
 {
     /**
      * Создание поста по его идентификатору.
      *
      * @param string $id
-     * @return null
+     *
+     * @return InstagramPostModel|null
      */
-    public function createPost($id = '')
+    public function createPost(string $id = ''): ?InstagramPostModel
     {
-        if (! $id) {
-            return;
-        }
+        $post = $this->getPostByID($id);
 
-        $result = $this->sendRequest('mediaInfo', [$id]);
-
-        if (isset($result['items'][0])) {
-            $post = $result['items'][0];
-        } else {
-            return;
+        if (! $post) {
+            return null;
         }
 
         $instagramPost = InstagramPostModel::updateOrCreate([
@@ -54,6 +54,7 @@ class InstagramPost
      * @param string $periodEnd
      * @param array $filter
      * @param array $types
+     *
      * @return array
      */
     public function getPostsByTag($tag, $periodStart = '', $periodEnd = '', $filter = [], $types = [1, 2])
@@ -71,7 +72,7 @@ class InstagramPost
 
         while ($haveData && ! $stop) {
             $result = $this->sendRequest('getHashtagFeed', [$searchTag, $next]);
-            sleep(1);
+            sleep(5);
 
             if (isset($result['ranked_items'])) {
                 $ranked = $this->getFilteredPosts($result['ranked_items'], $tag, $startTime, $endTime, $filter, $types);
@@ -92,6 +93,31 @@ class InstagramPost
         }
 
         return array_reverse($postsArr);
+    }
+
+    /**
+     * Получаем пост из Instagram.
+     *
+     * @param string $id
+     *
+     * @return array|null
+     */
+    public function getPostByID(string $id = ''): ?array
+    {
+        if (! $id) {
+            return null;
+        }
+
+        $result = $this->sendRequest('mediaInfo', [$id]);
+        sleep(5);
+
+        if (isset($result['items'][0])) {
+            $post = $result['items'][0];
+        } else {
+            return null;
+        }
+
+        return $post;
     }
 
     /**
