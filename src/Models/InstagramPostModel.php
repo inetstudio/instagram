@@ -176,6 +176,16 @@ class InstagramPostModel extends Model implements HasMediaConversions
     }
 
     /**
+     * Получаем дату поста.
+     *
+     * @return \Carbon\Carbon|null
+     */
+    public function getPostTimeAttribute()
+    {
+        return $this->taken_at;
+    }
+
+    /**
      * Регистрируем преобразования изображений.
      *
      * @param Media|null $media
