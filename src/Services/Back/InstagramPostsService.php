@@ -71,7 +71,7 @@ class InstagramPostsService implements InstagramPostsServiceContract
         $searchTag = (is_array($tag)) ? array_values($tag)[0] : $tag;
 
         while ($haveData && ! $stop) {
-            $result = $this->sendRequest('getHashtagFeed', [$searchTag, $next]);
+            $result = $this->sendRequest('hashtag/getFeed', [$searchTag, $next]);
             sleep(5);
 
             if (isset($result['ranked_items'])) {
@@ -108,7 +108,7 @@ class InstagramPostsService implements InstagramPostsServiceContract
             return null;
         }
 
-        $result = $this->sendRequest('mediaInfo', [$id]);
+        $result = $this->sendRequest('media/getInfo', [$id]);
         sleep(5);
 
         if (isset($result['items'][0])) {

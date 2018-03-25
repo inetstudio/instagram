@@ -25,7 +25,7 @@ class InstagramUsersService implements InstagramUsersServiceContract
             return;
         }
 
-        $result = $this->sendRequest('getUsernameInfo', [$id]);
+        $result = $this->sendRequest('people/getInfoById', [$id]);
 
         if (isset($result['user'])) {
             $user = $result['user'];
