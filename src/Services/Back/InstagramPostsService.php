@@ -3,6 +3,7 @@
 namespace InetStudio\Instagram\Services\Back;
 
 use GuzzleHttp\Client;
+use InstagramAPI\Signatures;
 use Emojione\Emojione as Emoji;
 use InetStudio\Instagram\Models\InstagramPostModel;
 use InetStudio\Instagram\Contracts\Services\Back\InstagramPostsServiceContract;
@@ -59,10 +60,12 @@ class InstagramPostsService implements InstagramPostsServiceContract
      */
     public function getPostsByTag($tag, $periodStart = '', $periodEnd = '', $filter = [], $types = [1, 2])
     {
+        $rankToken = Signatures::generateUUID();
+
         $haveData = true;
         $stop = false;
 
-        $next = '';
+        $next = null;
         $postsArr = [];
 
         $startTime = ($periodStart) ? strtotime($periodStart) : null;
@@ -71,7 +74,7 @@ class InstagramPostsService implements InstagramPostsServiceContract
         $searchTag = (is_array($tag)) ? array_values($tag)[0] : $tag;
 
         while ($haveData && ! $stop) {
-            $result = $this->sendRequest('hashtag/getFeed', [$searchTag, $next]);
+            $result = $this->sendRequest('hashtag/getFeed', [$searchTag, $rankToken, $next]);
             sleep(5);
 
             if (isset($result['ranked_items'])) {
@@ -89,7 +92,7 @@ class InstagramPostsService implements InstagramPostsServiceContract
             }
 
             $haveData = (! isset($result['next_max_id'])) ? false : true;
-            $next = (isset($result['next_max_id'])) ? $result['next_max_id'] : '';
+            $next = (isset($result['next_max_id'])) ? $result['next_max_id'] : null;
         }
 
         return array_reverse($postsArr);
