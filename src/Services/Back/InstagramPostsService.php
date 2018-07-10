@@ -146,6 +146,8 @@ class InstagramPostsService implements InstagramPostsServiceContract
         foreach ($posts as $post) {
             if (is_array($tag)) {
                 $caption = (isset($post['caption']['text'])) ? Emoji::toShort($post['caption']['text']) : '';
+                // fix for changed Emoji transformers. [by Rakhmankin on 10/07/2018]
+                $caption = preg_replace('/:pound_symbol:/', '#', $caption);
                 preg_match_all('/(#[а-яА-Яa-zA-Z0-9]+)/u', $caption, $postTags);
                 $postTags = array_map(function ($value) {
                     return mb_strtolower($value);
