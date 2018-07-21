@@ -29,12 +29,19 @@ class InstagramPostsService implements InstagramPostsServiceContract
             return null;
         }
 
+        // fix for carousel type posts. [by Rakhmankin on 22/07/2018]
+        if (isset($post['carousel_media'])) {
+            $image = $post['carousel_media'][0]['image_versions2'];
+        } else {
+            $image = $post['image_versions2'];
+        }
+
         $instagramPost = InstagramPostModel::updateOrCreate([
             'pk' => $post['pk'],
         ], [
             'user_pk' => $post['user']['pk'],
             'media_type' => $post['media_type'],
-            'image_versions' => $post['image_versions2']['candidates'][0]['url'],
+            'image_versions' => $image['candidates'][0]['url'],
             'video_versions' => (isset($post['video_versions'][0]['url'])) ? $post['video_versions'][0]['url'] : '',
             'code' => $post['code'],
             'view_count' => isset($post['view_count']) ? $post['view_count'] : 0,

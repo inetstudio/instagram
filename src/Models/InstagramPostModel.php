@@ -148,6 +148,7 @@ class InstagramPostModel extends Model implements HasMediaConversions
     {
         switch ($this->media_type) {
             case 1:
+            case 8: // carousel type
                 return 'photo';
             case 2:
                 return 'video';
