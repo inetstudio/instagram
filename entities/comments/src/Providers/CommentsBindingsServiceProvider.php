@@ -3,17 +3,13 @@
 namespace InetStudio\Instagram\Comments\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
 /**
  * Class CommentsBindingsServiceProvider.
  */
-class CommentsBindingsServiceProvider extends ServiceProvider
+class CommentsBindingsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-    * @var bool
-    */
-    protected $defer = true;
-
     /**
     * @var array
     */

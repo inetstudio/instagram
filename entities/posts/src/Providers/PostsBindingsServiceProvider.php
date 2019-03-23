@@ -3,17 +3,13 @@
 namespace InetStudio\Instagram\Posts\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
 /**
  * Class PostsBindingsServiceProvider.
  */
-class PostsBindingsServiceProvider extends ServiceProvider
+class PostsBindingsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-    * @var  bool
-    */
-    protected $defer = true;
-
     /**
     * @var  array
     */

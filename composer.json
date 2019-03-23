@@ -7,7 +7,7 @@
         "php": ">=7.1.3",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^6.3",
-        "emojione/emojione": "^4.0",
+        "emojione/emojione": "^4.5",
         "mgp25/instagram-php": "dev-master"
     },
     "authors": [
