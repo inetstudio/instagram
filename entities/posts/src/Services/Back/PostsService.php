@@ -6,6 +6,7 @@ use InstagramAPI\Signatures;
 use InstagramAPI\InstagramID;
 use InstagramAPI\Response\Model\Item;
 use Spatie\MediaLibrary\Models\Media;
+use InstagramAPI\Response\Model\SectionMedia;
 use InstagramAPI\Response\Model\Image_Versions2;
 use InetStudio\AdminPanel\Services\Back\BaseService;
 use InetStudio\Instagram\Posts\Contracts\Models\PostModelContract;
@@ -90,10 +91,10 @@ class PostsService extends BaseService implements PostsServiceContract
      * @return Media
      */
     protected function attachImage(PostModelContract $item,
-                                   Image_Versions2 $image,
-                                   string $name,
-                                   string $collection = 'media',
-                                   array $currentMedia = []): ?Media
+        Image_Versions2 $image,
+        string $name,
+        string $collection = 'media',
+        array $currentMedia = []): ?Media
     {
         $imageAttach = null;
 
@@ -121,10 +122,10 @@ class PostsService extends BaseService implements PostsServiceContract
      * @return Media
      */
     protected function attachVideo(PostModelContract $item,
-                                   Image_Versions2 $image,
-                                   array $video,
-                                   string $name,
-                                   array $currentMedia = []): ?Media
+        Image_Versions2 $image,
+        array $video,
+        string $name,
+        array $currentMedia = []): ?Media
     {
         $videoAttach = null;
 
@@ -136,13 +137,13 @@ class PostsService extends BaseService implements PostsServiceContract
             $videoAttach = $item->addMediaFromUrl($videoVersion->getUrl())
                 ->usingName($name)
                 ->withCustomProperties(array_merge(
-                    json_decode(json_encode($image), true),
-                    [
-                        'cover' => [
-                            'model' => get_class($cover),
-                            'id' => $cover->id,
-                        ],
-                    ])
+                        json_decode(json_encode($image), true),
+                        [
+                            'cover' => [
+                                'model' => get_class($cover),
+                                'id' => $cover->id,
+                            ],
+                        ])
                 )
                 ->toMediaCollection('media', 'instagram_posts');
         }
@@ -176,25 +177,78 @@ class PostsService extends BaseService implements PostsServiceContract
             $result = $instagramService->request('hashtag', 'getFeed', [$searchTag, $rankToken, $next]);
             sleep(5);
 
-            if ($rankedItems = $result->getRankedItems()) {
-                $ranked = $this->filterPosts($rankedItems, $filters);
+            $processedResult = $this->processResult($result, $filters);
 
-                $postsArr = array_merge($postsArr, $ranked['posts']);
-                $stop = $ranked['stop'];
-            }
-
-            if ($items = $result->getItems()) {
-                $all = $this->filterPosts($items, $filters);
-
-                $postsArr = array_merge($postsArr, $all['posts']);
-                $stop = $all['stop'];
-            }
+            $stop = $processedResult['stop'];
+            $postsArr = array_merge($postsArr, $processedResult['items']);
 
             $haveData = (!! $result->getNextMaxId());
             $next = $result->getNextMaxId() ?? null;
         }
 
         return $postsArr;
+    }
+
+    /**
+     * Обрабатываем результат запроса.
+     *
+     * @param $result
+     *
+     * @return array
+     */
+    protected function processResult($result, $filters): array
+    {
+        $data = [
+            'stop' => false,
+            'items' => [],
+        ];
+
+        if ($result->isSections()) {
+            $sections = $result->getSections();
+
+            foreach ($sections as $section) {
+
+                if ($section->isItems()) {
+                    if ($items = $section->getItems()) {
+                        $filtered = $this->filterPosts($items, $filters);
+
+                        $data['stop'] = $filtered['stop'];
+                        $data['items'] = array_merge($data['items'], $filtered['posts']);
+                    }
+                }
+
+                if ($section->isLayoutContent()) {
+                    $layoutContent = $section->getLayoutContent();
+
+                    if ($items = $layoutContent->getMedias()) {
+                        $filtered = $this->filterPosts($items, $filters);
+
+                        $data['stop'] = $filtered['stop'];
+                        $data['items'] = array_merge($data['items'], $filtered['posts']);
+                    }
+                }
+            }
+        }
+
+        if ($result->isRankedItems()) {
+            if ($items = $result->getRankedItems()) {
+                $filtered = $this->filterPosts($items, $filters);
+
+                $data['stop'] = $filtered['stop'];
+                $data['items'] = array_merge($data['items'], $filtered['posts']);
+            }
+        }
+
+        if ($result->isItems()) {
+            if ($items = $result->getItems()) {
+                $filtered = $this->filterPosts($items, $filters);
+
+                $data['stop'] = $filtered['stop'];
+                $data['items'] = array_merge($data['items'], $filtered['posts']);
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -213,6 +267,10 @@ class PostsService extends BaseService implements PostsServiceContract
 
         $pipeLine = app('Illuminate\Pipeline\Pipeline');
         foreach ($posts as $post) {
+            if ($post instanceof SectionMedia) {
+                $post = $post->getMedia();
+            }
+
             if (isset($filters['startTime']) && $filters['startTime']->startTime && (int) $post->getTakenAt() < $filters['startTime']->startTime) {
                 $filteredPosts['stop'] = true;
 
