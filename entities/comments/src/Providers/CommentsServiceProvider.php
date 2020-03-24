@@ -12,8 +12,7 @@ class CommentsServiceProvider extends ServiceProvider
 {
     /**
      * Загрузка сервиса.
-     *
-     * @return void
+
      */
     public function boot(): void
     {
@@ -23,8 +22,7 @@ class CommentsServiceProvider extends ServiceProvider
 
     /**
      * Регистрация команд.
-     *
-     * @return void
+
      */
     protected function registerConsoleCommands(): void
     {
@@ -37,8 +35,7 @@ class CommentsServiceProvider extends ServiceProvider
 
     /**
      * Регистрация ресурсов.
-     *
-     * @return void
+
      */
     protected function registerPublishes(): void
     {

@@ -3,7 +3,7 @@
 namespace InetStudio\Instagram\Posts\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use InetStudio\Uploads\Models\Traits\HasImages;
 use InetStudio\AdminPanel\Models\Traits\HasJSONColumns;

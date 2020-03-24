@@ -10,8 +10,7 @@ class CreateInstagramPostsTables extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
+
      */
     public function up()
     {
@@ -27,8 +26,7 @@ class CreateInstagramPostsTables extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
+
      */
     public function down()
     {

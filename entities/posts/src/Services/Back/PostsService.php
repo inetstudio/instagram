@@ -5,7 +5,7 @@ namespace InetStudio\Instagram\Posts\Services\Back;
 use InstagramAPI\Signatures;
 use InstagramAPI\InstagramID;
 use InstagramAPI\Response\Model\Item;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use InstagramAPI\Response\Model\SectionMedia;
 use InstagramAPI\Response\Model\Image_Versions2;
 use InetStudio\AdminPanel\Services\Back\BaseService;

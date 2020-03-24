@@ -12,8 +12,6 @@ class PostsServiceProvider extends ServiceProvider
 {
     /**
      * Загрузка сервиса.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -23,8 +21,6 @@ class PostsServiceProvider extends ServiceProvider
 
     /**
      * Регистрация команд.
-     *
-     * @return void
      */
     protected function registerConsoleCommands(): void
     {
@@ -38,8 +34,6 @@ class PostsServiceProvider extends ServiceProvider
 
     /**
      * Регистрация ресурсов.
-     *
-     * @return void
      */
     protected function registerPublishes(): void
     {

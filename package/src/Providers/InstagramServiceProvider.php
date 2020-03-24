@@ -11,8 +11,6 @@ class InstagramServiceProvider extends ServiceProvider
 {
     /**
      * Загрузка сервиса.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -22,8 +20,6 @@ class InstagramServiceProvider extends ServiceProvider
 
     /**
      * Регистрация команд.
-     *
-     * @return void
      */
     protected function registerConsoleCommands(): void
     {
@@ -36,8 +32,6 @@ class InstagramServiceProvider extends ServiceProvider
 
     /**
      * Регистрация ресурсов.
-     *
-     * @return void
      */
     protected function registerPublishes(): void
     {
