@@ -3,6 +3,7 @@
 namespace InetStudio\Instagram\Posts\Pipelines\Filters;
 
 use Closure;
+use Illuminate\Support\Arr;
 use Emojione\Emojione as Emoji;
 
 /**
@@ -41,9 +42,11 @@ class ByTags
 
             preg_match_all('/(#[а-яА-Яa-zA-Z0-9]+)/u', $caption, $postTags);
 
+            $postTags = Arr::wrap(array_unique(Arr::flatten($postTags)));
+
             $postTags = array_map(function ($value) {
                 return mb_strtolower($value);
-            }, $postTags[0]);
+            }, $postTags);
 
             if (count(array_intersect($this->tag, $postTags)) != count($this->tag)) {
                 $post = null;
@@ -64,10 +67,10 @@ class ByTags
     {
         if (is_array($tag)) {
             return array_map(function ($value) {
-                return '#'.trim($value, '#');
+                return '#'.trim(mb_strtolower($value), '#');
             }, $tag);
         } else {
-            return '#'.trim($tag, '#');
+            return '#'.trim(mb_strtolower($tag), '#');
         }
     }
 }
