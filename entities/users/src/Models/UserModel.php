@@ -67,6 +67,13 @@ class UserModel extends Model implements UserModelContract, HasMedia
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['nickname', 'url', 'full_name'];
+
+    /**
      * Сеттер атрибута pk.
      *
      * @param $value

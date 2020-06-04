@@ -63,6 +63,13 @@ class PostModel extends Model implements PostModelContract, HasMedia
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['media_type', 'url', 'caption', 'social_name'];
+
+    /**
      * Атрибуты, которые должны быть преобразованы к базовым типам.
      *
      * @var array

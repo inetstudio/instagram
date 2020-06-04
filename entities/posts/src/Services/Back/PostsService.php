@@ -163,27 +163,32 @@ class PostsService extends BaseService implements PostsServiceContract
     {
         $instagramService = app()->make('InetStudio\Instagram\Contracts\Services\Back\InstagramServiceContract');
 
-        $rankToken = Signatures::generateUUID();
-
-        $haveData = true;
-        $stop = false;
-
-        $next = null;
         $postsArr = [];
 
-        $searchTag = (is_array($tag)) ? array_values($tag)[0] : $tag;
+        foreach (['top', 'recent'] as $tab) {
+            $rankToken = Signatures::generateUUID();
 
-        while ($haveData && ! $stop) {
-            $result = $instagramService->request('hashtag', 'getFeed', [$searchTag, $rankToken, $next]);
-            sleep(5);
+            $haveData = true;
+            $stop = false;
 
-            $processedResult = $this->processResult($result, $filters);
+            $nextMediaIds = null;
+            $maxId = null;
 
-            $stop = $processedResult['stop'];
-            $postsArr = array_merge($postsArr, $processedResult['items']);
+            $hashtag = (is_array($tag)) ? array_values($tag)[0] : $tag;
 
-            $haveData = (!! $result->getNextMaxId());
-            $next = $result->getNextMaxId() ?? null;
+            while ($haveData && ! $stop) {
+                $result = $instagramService->request('hashtag', 'getSection', [$hashtag, $rankToken, $tab, $nextMediaIds, $maxId]);
+                sleep(5);
+
+                $processedResult = $this->processResult($result, $filters);
+
+                $stop = $processedResult['stop'];
+                $postsArr = array_merge($postsArr, $processedResult['items']);
+
+                $haveData = (!! $result->getNextMaxId());
+                $maxId = $result->getNextMaxId() ?? null;
+            }
+
         }
 
         return $postsArr;

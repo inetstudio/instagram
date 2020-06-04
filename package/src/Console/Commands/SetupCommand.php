@@ -42,6 +42,11 @@ class SetupCommand extends BaseSetupCommand
             ],
             [
                 'type' => 'artisan',
+                'description' => 'Instagram stories setup',
+                'command' => 'inetstudio:instagram:stories:setup',
+            ],
+            [
+                'type' => 'artisan',
                 'description' => 'Instagram users setup',
                 'command' => 'inetstudio:instagram:users:setup',
             ],

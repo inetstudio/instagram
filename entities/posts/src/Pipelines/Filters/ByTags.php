@@ -39,6 +39,7 @@ class ByTags
 
             $caption = ($caption) ? Emoji::toShort($caption) : '';
             $caption = preg_replace('/:pound_symbol:/', '#', $caption);
+            $caption = str_replace('й', 'й', $caption);
 
             preg_match_all('/(#[а-яА-Яa-zA-Z0-9]+)/u', $caption, $postTags);
 

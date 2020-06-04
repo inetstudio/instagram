@@ -4,10 +4,11 @@
     "homepage": "https://github.com/inetstudio/instagram",
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^6.3",
-        "emojione/emojione": "^4.5"
+        "emojione/emojione": "^4.5",
+        "lazyjsonmapper/lazyjsonmapper": "^1.6.1"
     },
     "authors": [
         {
@@ -20,7 +21,9 @@
           "InetStudio\\Instagram\\": "package/src",
           "InetStudio\\Instagram\\Comments\\": "entities/comments/src",
           "InetStudio\\Instagram\\Posts\\": "entities/posts/src",
-          "InetStudio\\Instagram\\Users\\": "entities/users/src"
+          "InetStudio\\Instagram\\Stories\\": "entities/stories/src",
+          "InetStudio\\Instagram\\Users\\": "entities/users/src",
+          "InstagramAPI\\": "libs/instagram-php/src"
       }
     },
     "extra": {
@@ -32,6 +35,8 @@
                 "InetStudio\\Instagram\\Comments\\Providers\\CommentsServiceProvider",
                 "InetStudio\\Instagram\\Posts\\Providers\\PostsBindingsServiceProvider",
                 "InetStudio\\Instagram\\Posts\\Providers\\PostsServiceProvider",
+                "InetStudio\\Instagram\\Stories\\Providers\\StoriesBindingsServiceProvider",
+                "InetStudio\\Instagram\\Stories\\Providers\\StoriesServiceProvider",
                 "InetStudio\\Instagram\\Users\\Providers\\UsersBindingsServiceProvider",
                 "InetStudio\\Instagram\\Users\\Providers\\UsersServiceProvider"
             ]
