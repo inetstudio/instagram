@@ -29,10 +29,11 @@ class PostsService extends BaseService implements PostsServiceContract
      * Сохраняем модель.
      *
      * @param Item $post
+     * @param array $mediaTypes
      *
      * @return PostModelContract
      */
-    public function save(Item $post): PostModelContract
+    public function save(Item $post, array $mediaTypes): PostModelContract
     {
         $data = [
             'pk' => $post->getPk(),
@@ -41,7 +42,7 @@ class PostsService extends BaseService implements PostsServiceContract
         ];
 
         $item = $this->repository->saveInstagramObject($data, $post->getPk());
-        $this->attachMedia($item, $post);
+        $this->attachMedia($item, $post, $mediaTypes);
 
         return $item;
     }
@@ -52,26 +53,35 @@ class PostsService extends BaseService implements PostsServiceContract
      *
      * @param PostModelContract $item
      * @param Item $post
+     * @param array $mediaTypes
      */
-    protected function attachMedia(PostModelContract $item, Item $post): void
+    protected function attachMedia(PostModelContract $item, Item $post, array $mediaTypes): void
     {
         $currentMedia = $item->getMedia('media')->pluck('name')->toArray();
 
         switch ($post->getMediaType()) {
             case 1:
-                $this->attachImage($item, $post->getImageVersions2(), $post->getId(), 'media', $currentMedia);
+                if (in_array(1, $mediaTypes)) {
+                    $this->attachImage($item, $post->getImageVersions2(), $post->getId(), 'media', $currentMedia);
+                }
                 break;
             case 2:
-                $this->attachVideo($item, $post->getImageVersions2(), $post->getVideoVersions(), $post->getId(), $currentMedia);
+                if (in_array(2, $mediaTypes)) {
+                    $this->attachVideo($item, $post->getImageVersions2(), $post->getVideoVersions(), $post->getId(), $currentMedia);
+                }
                 break;
             case 8:
                 foreach ($post->getCarouselMedia() as $carouselMedia) {
                     switch ($carouselMedia->getMediaType()) {
                         case 1:
-                            $this->attachImage($item, $carouselMedia->getImageVersions2(), $carouselMedia->getId(), 'media', $currentMedia);
+                            if (in_array(1, $mediaTypes)) {
+                                $this->attachImage($item, $carouselMedia->getImageVersions2(), $carouselMedia->getId(), 'media', $currentMedia);
+                            }
                             break;
                         case 2:
-                            $this->attachVideo($item, $carouselMedia->getImageVersions2(), $carouselMedia->getVideoVersions(), $carouselMedia->getId(), $currentMedia);
+                            if (in_array(2, $mediaTypes)) {
+                                $this->attachVideo($item, $carouselMedia->getImageVersions2(), $carouselMedia->getVideoVersions(), $carouselMedia->getId(), $currentMedia);
+                            }
                             break;
                     }
                 }
