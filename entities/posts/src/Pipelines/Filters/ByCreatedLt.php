@@ -32,7 +32,11 @@ class ByCreatedLt
      */
     public function handle($post, Closure $next)
     {
-        if (! ($post && $this->endTime && $post->getTakenAt() < $this->endTime)) {
+        if (! $post) {
+            return $next($post);
+        }
+
+        if (! ($this->endTime && $post->getTakenAt() < $this->endTime)) {
             $post = null;
         }
 

@@ -32,7 +32,11 @@ class ByCreatedGt
      */
     public function handle($story, Closure $next)
     {
-        if (! ($story && $this->startTime && $story->getTakenAt() > $this->startTime)) {
+        if (! $story) {
+            return $next($story);
+        }
+
+        if (! ($this->startTime && $story->getTakenAt() > $this->startTime)) {
             $story = null;
         }
 

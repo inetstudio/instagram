@@ -32,7 +32,11 @@ class ByMediaType
      */
     public function handle($story, Closure $next)
     {
-        if (! ($story && in_array($story->getMediaType(), $this->mediaTypes))) {
+        if (! $story) {
+            return $next($story);
+        }
+
+        if (! in_array($story->getMediaType(), $this->mediaTypes)) {
             $story = null;
         }
 

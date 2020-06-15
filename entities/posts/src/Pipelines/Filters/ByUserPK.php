@@ -32,7 +32,11 @@ class ByUserPK
      */
     public function handle($post, Closure $next)
     {
-        if (! ($post && ! in_array((string) $post->getUser()->getPk(), $this->usersPKs))) {
+        if (! $post) {
+            return $next($post);
+        }
+
+        if (in_array((string) $post->getUser()->getPk(), $this->usersPKs)) {
             $post = null;
         }
 

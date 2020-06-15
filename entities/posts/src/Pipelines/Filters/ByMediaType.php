@@ -32,6 +32,10 @@ class ByMediaType
      */
     public function handle($post, Closure $next)
     {
+        if (! $post) {
+            return $next($post);
+        }
+
         if ($post->getMediaType() === 8) {
             $passCheck = false;
 
@@ -47,7 +51,7 @@ class ByMediaType
                 $post = null;
             }
         } else {
-            if (! ($post && in_array($post->getMediaType(), $this->mediaTypes))) {
+            if (! (in_array($post->getMediaType(), $this->mediaTypes))) {
                 $post = null;
             }
         }

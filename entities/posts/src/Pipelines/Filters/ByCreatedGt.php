@@ -32,7 +32,11 @@ class ByCreatedGt
      */
     public function handle($post, Closure $next)
     {
-        if (! ($post && $this->startTime && $post->getTakenAt() > $this->startTime)) {
+        if (! $post) {
+            return $next($post);
+        }
+
+        if (! ($this->startTime && $post->getTakenAt() > $this->startTime)) {
             $post = null;
         }
 

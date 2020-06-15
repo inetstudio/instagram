@@ -25,33 +25,35 @@ class ByTags
     }
 
     /**
-     * @param mixed $item
+     * @param mixed $story
      * @param Closure $next
      *
      * @return mixed
      */
-    public function handle($item, Closure $next)
+    public function handle($story, Closure $next)
     {
-        if ($item) {
-            $storyHashtags = $item->getStoryHashtags();
-
-            $tags = [];
-            foreach ($storyHashtags as $storyHashtag) {
-                $hashtag = $storyHashtag->getHashtag();
-
-                $tags[] = $hashtag->getName();
-            }
-
-            $tags = array_map(function ($value) {
-                return '#'.trim(mb_strtolower($value), '#');
-            }, $tags);
-
-            if (count(array_intersect($this->tag, $tags)) != count($this->tag)) {
-                $item = null;
-            }
+        if (! $story) {
+            return $next($story);
         }
 
-        return $next($item);
+        $storyHashtags = $story->getStoryHashtags();
+
+        $tags = [];
+        foreach ($storyHashtags as $storyHashtag) {
+            $hashtag = $storyHashtag->getHashtag();
+
+            $tags[] = $hashtag->getName();
+        }
+
+        $tags = array_map(function ($value) {
+            return '#'.trim(mb_strtolower($value), '#');
+        }, $tags);
+
+        if (count(array_intersect($this->tag, $tags)) != count($this->tag)) {
+            $story = null;
+        }
+
+        return $next($story);
     }
 
     /**

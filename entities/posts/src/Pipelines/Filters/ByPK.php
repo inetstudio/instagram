@@ -32,7 +32,11 @@ class ByPK
      */
     public function handle($post, Closure $next)
     {
-        if (! ($post && ! in_array((string) $post->getPk(), $this->PKs))) {
+        if (! $post) {
+            return $next($post);
+        }
+
+        if (in_array((string) $post->getPk(), $this->PKs)) {
             $post = null;
         }
 

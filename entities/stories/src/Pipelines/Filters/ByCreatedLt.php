@@ -32,7 +32,11 @@ class ByCreatedLt
      */
     public function handle($story, Closure $next)
     {
-        if (! ($story && $this->endTime && $story->getTakenAt() < $this->endTime)) {
+        if (! $story) {
+            return $next($story);
+        }
+
+        if (! ($this->endTime && $story->getTakenAt() < $this->endTime)) {
             $story = null;
         }
 

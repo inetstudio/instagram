@@ -34,7 +34,11 @@ class ByTags
      */
     public function handle($post, Closure $next)
     {
-        if ($post && is_array($this->tag) && count($this->tag) > 1) {
+        if (! $post) {
+            return $next($post);
+        }
+
+        if (is_array($this->tag) && count($this->tag) > 1) {
             $caption = $post->getCaption()->getText();
 
             $caption = ($caption) ? Emoji::toShort($caption) : '';
