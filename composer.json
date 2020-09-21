@@ -6,7 +6,7 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "^7.0",
         "emojione/emojione": "^4.5",
         "lazyjsonmapper/lazyjsonmapper": "^1.6.1"
     },
