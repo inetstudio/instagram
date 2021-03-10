@@ -62,7 +62,7 @@ class InstagramService implements InstagramServiceContract
                     ],
                     'form_params' => [
                         'options' => $this->params,
-                        'data' => $params,
+                        'data' => json_encode($params),
                     ],
                 ]
             );
