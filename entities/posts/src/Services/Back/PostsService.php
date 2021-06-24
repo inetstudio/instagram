@@ -188,7 +188,7 @@ class PostsService extends BaseService implements PostsServiceContract
 
             while ($haveData && ! $stop) {
                 $result = $instagramService->request('hashtag', 'getSection', [$hashtag, $rankToken, $tab, $nextMediaIds, $maxId]);
-                sleep(5);
+                sleep(15);
 
                 $processedResult = $this->processResult($result, $filters);
 
