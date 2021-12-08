@@ -5,7 +5,7 @@ namespace InetStudio\Instagram\Stories\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use InetStudio\Uploads\Models\Traits\HasImages;
+use InetStudio\UploadsPackage\Uploads\Models\Traits\HasMedia;
 use InetStudio\AdminPanel\Models\Traits\HasJSONColumns;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use InetStudio\Instagram\Stories\Contracts\Models\StoryModelContract;
@@ -15,7 +15,7 @@ use InetStudio\Instagram\Stories\Contracts\Models\StoryModelContract;
  */
 class StoryModel extends Model implements StoryModelContract, HasMedia
 {
-    use HasImages;
+    use HasMedia;
     use SoftDeletes;
     use HasJSONColumns;
 
